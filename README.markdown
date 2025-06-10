@@ -144,7 +144,12 @@ NEXT_PUBLIC_EMAILJS_USER_ID={{NEXT_PUBLIC_EMAILJS_USER_ID}}
    - Setup the stripe cli by
      -  First install stripe cli and run `stripe login` then login
      - Then run `stripe listen --forward-to localhost:3000/api/webhooks/stripe/route.ts` for the webhook and add to `.env`
-   - Then after adding clerk webhook and stripe webhook now run the application 
+   - Then after adding clerk webhook and stripe webhook now run the application
+  
+5. "Setup the the database"
+   - Run command `npx prisma generate` for generate the migration for the machine
+   - Run command `npx prisma migrate dev` and `npx prisma db push` for populating database with tables
+   - Run command `npm run prisma-seed` for seeding the database make sure you run setup command before seeding 
    
 
 5. **Stop the Application**:
