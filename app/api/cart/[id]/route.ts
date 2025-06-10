@@ -24,8 +24,7 @@ export async function PATCH(
 }
 
 // DELETE handler
-export async function Delete(
-  req: NextRequest, // Use NextRequest for proper typing
+export async function PUT(
   { params }: { params: { id: string } } // Explicitly define the params type
 ) {
   const user = await currentUser();
