@@ -1,10 +1,12 @@
 import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
+import type { NextRequest } from "next/server"; // Import NextRequest for proper typing
 import { NextResponse } from "next/server";
 
+// PATCH handler
 export async function PATCH(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest, // Use NextRequest instead of Request for better type inference
+  { params }: { params: { id: string } } // Explicitly define the params type
 ) {
   const user = await currentUser();
   const userId = user?.id;
@@ -21,9 +23,10 @@ export async function PATCH(
   return NextResponse.json(updatedItem);
 }
 
+// DELETE handler
 export async function DELETE(
-  req: Request,
-  { params }: { params: { id: string } }
+  req: NextRequest, // Use NextRequest for proper typing
+  { params }: { params: { id: string } } // Explicitly define the params type
 ) {
   const user = await currentUser();
   const userId = user?.id;
