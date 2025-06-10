@@ -20,7 +20,6 @@ export async function POST(req: Request) {
   }
 
   const wh = new Webhook(webhookSecret);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let evt: any;
 
   try {

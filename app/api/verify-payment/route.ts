@@ -86,7 +86,6 @@ export async function POST(request: Request) {
     } else {
       return NextResponse.json({ message: "Payment failed" }, { status: 400 });
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Verify payment error:", error);
     return NextResponse.json(
