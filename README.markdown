@@ -2,6 +2,15 @@
 
 TechShop is a modern e-commerce platform built with Next.js, featuring user authentication, product browsing, cart management, Stripe payments, and order history. The application is fully dockerized, including both the Next.js app and a PostgreSQL database, and can be run with a single command.
 
+## Documentary Video
+
+To learn more about TechShop and see a walkthrough of its features, watch documentary video:
+
+### Watch the TechShop App Documentary Video
+
+[![alt text](https://github.com/user-attachments/assets/82eb2ed8-def3-47cb-8513-0d89697ac333)](https://www.youtube.com/watch?v=k8or1-cJJ4Q)
+
+
 ## Features
 
 - **Authentication**: Secure user authentication with Clerk, including webhook integration to save user data in the database before granting access.
