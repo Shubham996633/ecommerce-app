@@ -6,11 +6,16 @@ import { prisma } from "@/lib/prisma";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export default async function Delivery({
-  searchParams,
-}: {
-  searchParams: { productId?: string };
-}) {
+// Define the expected shape of searchParams after resolving the Promise
+type DeliveryPageProps = {
+  searchParams: Promise<{ productId?: string }>;
+};
+
+export default async function Delivery({ searchParams }: DeliveryPageProps) {
+  // Await the searchParams Promise to get the actual object
+  const resolvedSearchParams = await searchParams;
+  const productId = resolvedSearchParams.productId;
+
   const clerkUser = await currentUser();
   const userId = clerkUser?.id;
   if (!userId) redirect("/sign-in");
@@ -40,9 +45,7 @@ export default async function Delivery({
       },
     });
 
-    redirect(
-      `/delivery${searchParams.productId ? `?productId=${searchParams.productId}` : ""}`
-    );
+    redirect(`/delivery${productId ? `?productId=${productId}` : ""}`);
   }
 
   // Server action to proceed to payment with selected address
@@ -152,7 +155,7 @@ export default async function Delivery({
                   <input
                     type="hidden"
                     name="productId"
-                    value={searchParams.productId || ""}
+                    value={productId || ""}
                   />
                   <input
                     type="hidden"
