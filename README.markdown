@@ -35,6 +35,54 @@ To learn more about TechShop and see a walkthrough of its features, watch docume
 - **Containerization**: Docker, Docker Compose
 - **Database**: PostgreSQL 15
 
+## Project Structure
+
+Below is an overview of the project's directory structure and key files:
+
+```
+.
+├── app/                        # Next.js App Router directory
+│   ├── (auth)/                 # Authentication-related routes (e.g., sign-in, sign-up)
+│   ├── account/                # Account page for user details and order history
+│   │   ├── page.tsx            # Account page displaying user info and past orders
+│   │   └── AccountClient.tsx   # Client component for interactive filters and order display
+│   ├── cart/                   # Cart page for managing items
+│   │   └── page.tsx            # Displays cart items, quantity adjustments, and total price
+│   ├── delivery/               # Delivery page for address selection
+│   │   └── page.tsx            # Add/select shipping address for checkout
+│   ├── payment/                # Payment page for order summary and Stripe integration
+│   │   └── page.tsx            # Shows order summary and processes payment
+│   ├── payment/success/        # Success page after payment
+│   │   └── page.tsx            # Displays payment verification progress and sends email
+│   ├── product/[id]/           # Dynamic route for individual product pages
+│   │   └── page.tsx            # Dedicated product page with details and related products
+│   ├── api/                    # Next.js API routes
+│   │   ├── purchase/           # API for fetching purchase details
+│   │   ├── user/               # API for fetching user details
+│   │   ├── address/            # API for fetching address details
+│   │   ├── verify-payment/     # API for payment verification
+│   │   ├── webhooks/           # Webhook endpoints
+│   │   │   ├── clerk/          # Clerk webhook for user creation
+│   │   │   └── stripe/         # Stripe webhook for payment events
+│   ├── layout.tsx              # Root layout with global styles and providers
+│   └── page.tsx                # Dashboard/Home page with product catalog
+├── components/                 # Reusable React components
+│   ├── ui/                     # UI components (e.g., Button, Input)
+│   ├── AppNavbar.tsx           # Navigation bar with logout functionality
+│   ├── ProductCard.tsx         # Product card for dashboard and product pages
+│   ├── CartItem.tsx            # Cart item component with quantity controls
+│   └── AddressSelector.tsx     # Component for adding/selecting addresses
+├── lib/                        # Utility functions and Prisma client
+│   └── prisma.ts               # Prisma client setup
+├── prisma/                     # Prisma schema and migrations
+│   ├── migrations/             # Auto-generated migration files
+│   ├── schema.prisma           # Prisma schema defining models (User, Product, Purchase, etc.)
+│   └── seed.ts                 # Database seeding script for sample data
+├── public/                     # Static assets
+│   ├── images/                 # Product images and other static assets
+│   └── favicon.ico
+
+```
 ## Prerequisites
 
 - **Docker**: Install [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/).
@@ -90,6 +138,14 @@ NEXT_PUBLIC_EMAILJS_USER_ID={{NEXT_PUBLIC_EMAILJS_USER_ID}}
 4. **Access the Application**:
    - Open `http://localhost:3000` in your browser.
    - The PostgreSQL database is accessible on `localhost:5432` (if needed for debugging).
+   - Setup the Ngrok with `http http://localhost:3000` so it would give the live url and paste it to clerk webhook with as `"Ngrok URL"/api/webhooks/clerk`
+      Example as `https://3db7-2401-4900-a15a-9e90-f002-acd8-1d1f-dcdc.ngrok-free.app/api/webhooks/clerk`
+      For this you need to setup the clerk and in webhook select user all events
+   - Setup the stripe cli by
+     First install stripe cli and run `stripe login` then login
+     Then run `stripe listen --forward-to localhost:3000/api/webhooks/stripe/route.ts` for the webhook and add to `.env`
+   - Then after adding clerk webhook and stripe webhook now run the application 
+   
 
 5. **Stop the Application**:
    To stop and remove the containers:
@@ -132,49 +188,3 @@ For local development without Docker:
    npm run dev
    ```
 
-## Project Structure
-
-Below is an overview of the project's directory structure and key files:
-
-```
-.
-├── app/                        # Next.js App Router directory
-│   ├── (auth)/                 # Authentication-related routes (e.g., sign-in, sign-up)
-│   ├── account/                # Account page for user details and order history
-│   │   ├── page.tsx            # Account page displaying user info and past orders
-│   │   └── AccountClient.tsx   # Client component for interactive filters and order display
-│   ├── cart/                   # Cart page for managing items
-│   │   └── page.tsx            # Displays cart items, quantity adjustments, and total price
-│   ├── delivery/               # Delivery page for address selection
-│   │   └── page.tsx            # Add/select shipping address for checkout
-│   ├── payment/                # Payment page for order summary and Stripe integration
-│   │   └── page.tsx            # Shows order summary and processes payment
-│   ├── payment/success/        # Success page after payment
-│   │   └── page.tsx            # Displays payment verification progress and sends email
-│   ├── product/[id]/           # Dynamic route for individual product pages
-│   │   └── page.tsx            # Dedicated product page with details and related products
-│   ├── api/                    # Next.js API routes
-│   │   ├── purchase/           # API for fetching purchase details
-│   │   ├── user/               # API for fetching user details
-│   │   ├── address/            # API for fetching address details
-│   │   ├── verify-payment/     # API for payment verification
-│   │   ├── webhooks/           # Webhook endpoints
-│   │   │   ├── clerk/          # Clerk webhook for user creation
-│   │   │   └── stripe/         # Stripe webhook for payment events
-│   ├── layout.tsx              # Root layout with global styles and providers
-│   └── page.tsx                # Dashboard/Home page with product catalog
-├── components/                 # Reusable React components
-│   ├── ui/                     # UI components (e.g., Button, Input)
-│   ├── AppNavbar.tsx           # Navigation bar with logout functionality
-│   ├── ProductCard.tsx         # Product card for dashboard and product pages
-│   ├── CartItem.tsx            # Cart item component with quantity controls
-│   └── AddressSelector.tsx     # Component for adding/selecting addresses
-├── lib/                        # Utility functions and Prisma client
-│   └── prisma.ts               # Prisma client setup
-├── prisma/                     # Prisma schema and migrations
-│   ├── migrations/             # Auto-generated migration files
-│   ├── schema.prisma           # Prisma schema defining models (User, Product, Purchase, etc.)
-│   └── seed.ts                 # Database seeding script for sample data
-├── public/                     # Static assets
-│   ├── images/                 # Product images and other static assets
-│   └── favicon.ico
