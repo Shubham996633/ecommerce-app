@@ -139,11 +139,11 @@ NEXT_PUBLIC_EMAILJS_USER_ID={{NEXT_PUBLIC_EMAILJS_USER_ID}}
    - Open `http://localhost:3000` in your browser.
    - The PostgreSQL database is accessible on `localhost:5432` (if needed for debugging).
    - Setup the Ngrok with `http http://localhost:3000` so it would give the live url and paste it to clerk webhook with as `"Ngrok URL"/api/webhooks/clerk`
-      Example as `https://3db7-2401-4900-a15a-9e90-f002-acd8-1d1f-dcdc.ngrok-free.app/api/webhooks/clerk`
-      For this you need to setup the clerk and in webhook select user all events
+      - Example as `https://3db7-2401-4900-a15a-9e90-f002-acd8-1d1f-dcdc.ngrok-free.app/api/webhooks/clerk`
+      - For this you need to setup the clerk and in webhook select user all events
    - Setup the stripe cli by
-     First install stripe cli and run `stripe login` then login
-     Then run `stripe listen --forward-to localhost:3000/api/webhooks/stripe/route.ts` for the webhook and add to `.env`
+     -  First install stripe cli and run `stripe login` then login
+     - Then run `stripe listen --forward-to localhost:3000/api/webhooks/stripe/route.ts` for the webhook and add to `.env`
    - Then after adding clerk webhook and stripe webhook now run the application 
    
 
