@@ -54,7 +54,7 @@ export default function Cart() {
     if (newQuantity <= 0) {
       // Create a promise for the DELETE operation
       updatePromise = fetch(`/api/cart/${itemId}`, {
-        method: "DELETE",
+        method: "Delete",
       }).then(async (response) => {
         if (!response.ok) {
           const errorData = await response.json();

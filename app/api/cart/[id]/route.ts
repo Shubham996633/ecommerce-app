@@ -24,7 +24,7 @@ export async function PATCH(
 }
 
 // DELETE handler
-export async function DELETE(
+export async function Delete(
   req: NextRequest, // Use NextRequest for proper typing
   { params }: { params: { id: string } } // Explicitly define the params type
 ) {
